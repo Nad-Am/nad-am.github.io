@@ -1,0 +1,9 @@
+# _data/links.yml
+- name: "友链名称1"
+  link: "https://example1.com"
+  avatar: "https://example1.com/avatar.jpg"
+  description: "友链描述1"
+- name: "友链名称2"
+  link: "https://example2.com"
+  avatar: "https://example2.com/avatar.jpg"
+  description: "友链描述2"

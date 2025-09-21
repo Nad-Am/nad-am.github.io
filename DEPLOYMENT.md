@@ -5,12 +5,13 @@
 ## 配置说明
 
 ### 1. Vite 配置
-- 在 `vite.config.ts` 中设置了 `base: '/nad-am.github.io/'` 以适配 GitHub Pages 的子路径
+- 在 `vite.config.ts` 中设置了 `base: '/'` 以适配 GitHub Pages 的根路径
 - 构建输出目录设置为 `dist`
 
 ### 2. GitHub Actions 工作流
 - 工作流文件位置：`.github/workflows/deploy.yml`
 - 触发条件：推送到 `main` 或 `master` 分支
+- 使用官方推荐的 GitHub Pages 部署方式
 - 自动构建和部署到 GitHub Pages
 
 ### 3. 部署步骤
@@ -18,7 +19,7 @@
 #### 自动部署（推荐）
 1. 将代码推送到 GitHub 仓库的 `main` 或 `master` 分支
 2. GitHub Actions 会自动触发构建和部署流程
-3. 部署完成后，网站将在 `https://nad-am.github.io/nad-am.github.io/` 访问
+3. 部署完成后，网站将在 `https://nad-am.github.io/` 访问
 
 #### 手动部署
 ```bash
@@ -30,10 +31,18 @@ npm run deploy
 1. 进入 GitHub 仓库设置页面
 2. 找到 "Pages" 部分
 3. 在 "Source" 中选择 "GitHub Actions"
-4. 确保仓库有 `GITHUB_TOKEN` 权限
+4. 确保仓库有正确的权限设置
+
+## 权限要求
+
+工作流需要以下权限：
+- `contents: read` - 读取仓库内容
+- `pages: write` - 写入 GitHub Pages
+- `id-token: write` - 用于身份验证
 
 ## 注意事项
 
-- 确保仓库名称与 GitHub Pages 域名匹配
+- 确保仓库名称是 `nad-am.github.io`
 - 首次部署可能需要几分钟时间
-- 如果遇到 404 错误，请检查 `base` 路径配置是否正确
+- 如果遇到 404 错误，请检查 GitHub Pages 设置
+- 确保在仓库设置中启用了 GitHub Actions 作为 Pages 源

@@ -1,26 +1,33 @@
+# 文件名: .github/workflows/ci-cd.yml
+
 name: Deploy to GitHub Pages
 
 on:
+  # 当代码推送到 main 或 master 分支时触发
   push:
     branches: [ main, master ]
+  # 允许手动触发工作流
   workflow_dispatch:
 
+# 权限配置，这是官方部署方式所必须的
 permissions:
   contents: read
   pages: write
   id-token: write
 
+# 并发控制，确保只有一个部署任务在运行
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
 jobs:
+  # 构建任务
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout Repository
         uses: actions/checkout@v4
-        
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -30,17 +37,20 @@ jobs:
       - name: Install dependencies
         run: npm ci
         
-      - name: Build
+      - name: Build project
         run: npm run build
         
       - name: Setup Pages
+        # 配置 GitHub Pages 环境
         uses: actions/configure-pages@v4
         
       - name: Upload artifact
+        # 上传构建产物，供下一步的部署任务使用
         uses: actions/upload-pages-artifact@v3
         with:
           path: './dist'
 
+  # 部署任务
   deploy:
     environment:
       name: github-pages
@@ -49,5 +59,6 @@ jobs:
     needs: build
     steps:
       - name: Deploy to GitHub Pages
+        # 官方部署 Action，将构建产物部署到 GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

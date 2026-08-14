@@ -32,6 +32,12 @@
         enableQQ: <%= valine.enableQQ %>,
         meta: <%- valine.meta %>,
         requiredFields: <%- valine.requiredFields %>,
+        path: window.location.pathname,
+        <% if (valine.serverURLs) { %>
+        serverURLs: "<%= valine.serverURLs %>",
+        <% } else if (valine.appId) { %>
+        serverURLs: "https://" + "<%= valine.appId %>".slice(0, 8).toLowerCase() + ".api.lncldglobal.com",
+        <% } %>
         <% if (valine.bilibiliEmoji) { %>
         <%- partial("../plug-in/bilibili-emoji") %>
         <% } %>

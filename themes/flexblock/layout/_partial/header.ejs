@@ -86,7 +86,7 @@
                                                 <% } %>
                                                   <% if ( theme.comments.enable && theme.comments.use=="valine" &&
                                                     theme.comments.valine.visitor ) { %>
-                                                    <h2 id="<%= url_for(page.path) %>"
+                                                    <h2 id="<%= url_for(page.path).replace(/index\.html$/, '') %>"
                                                       class="title-sub-wrap leancloud_visitors"
                                                       data-flag-title="<%= page.title %>">
                                                       <em>文章访问量</em>

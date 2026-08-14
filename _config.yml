@@ -13,7 +13,7 @@ timezone: Asia/Shanghai
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: https://nad-am.github.io/myBlog
+url: https://nad-am.github.io
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
@@ -102,6 +102,6 @@ theme: flexblock
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   - type: git
-    repo: https://github.com/Nad-Am/myBlog.git
+    repo: https://github.com/Nad-Am/nad-am.github.io.git
     branch: gh-pages
     message: "Site updated: {{ now('YYYY-MM-DD HH:mm:ss') }}" # 自定义提交信息

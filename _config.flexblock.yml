@@ -46,8 +46,9 @@ comments:
   # giscus 评论 (GitHub账号登录评论，推荐，基于 GitHub Discussions)
   # docs: https://giscus.app/zh-CN
   giscus:
-    repo: "Nad-Am/myBlog"
+    repo: "Nad-Am/nad-am.github.io"
     repoId: "" # 从 https://giscus.app 获取
+
     category: "Announcements"
     categoryId: "" # 从 https://giscus.app 获取
     theme: "light"

@@ -8,17 +8,14 @@ menu:
 # 主页banner图
 banner: /images/bg.jpg
 
-# 归档页面背景图（如留空或不填，则使用上方默认的 banner 图）
-# archive_banner: /images/archive.jpg
-
 # 站点通知信息
-notice: mkl;ams
+notice: flex-block主题部分重构，详情查看https://github.com/miiiku/flex-block
 
 # 作者信息
 author:
-  name: Nad Am
-  avatar: /images/avatar.jpg
-  description: 不必
+  name: Sukoshi
+  avatar: https://s.gravatar.com/avatar/2d6b803eea37de0257620d5fabee7e64?s=200&r=g&d=retro
+  description: 贵在坚持
 
 toc:
   max_depth: 3 # 生成 TOC 的最大深度
@@ -26,33 +23,24 @@ toc:
 
 comments:
   enable: true
-  use: "valine" # 可选: "valine" (可匿名) || "giscus" (GitHub账号登录) || "gitalk" || "disqus"
-  # valine 评论 (支持匿名评论)
+  use: "valine" # valine || disqus
+  # valine 评论
   # docs: https://valine.js.org
+  # You can get your appid and appkey from https://leancloud.cn
+  # 这里appId和appKey一定一定要改成自己的，没有的话去 https://leancloud.cn 这个网站注册创建一个
   valine:
-    appId: ovEEIlc8BNoZqq0GxEU1YIyF-gzGzoHsz
-    appKey: UcUJhNpV6Jywbk2miaPIj0DG
+    appId:
+    appKey:
     placeholder: 随便说点什么叭～ # 评论框占位提示符
     avatar: mp # Gravatar 头像展示方式
     pageSize: 10 # 评论列表分页，每页条数
     lang: zh-cn # 多语言支持
     visitor: true # 文章访问量统计
     recordIP: true # 是否记录评论者IP
-    enableQQ: true # 是否启用昵称框自动获取QQ昵称和QQ头像，开启后是在昵称框输入QQ号码进行获取
-    meta: "['nick', 'mail']" # 评论者输入框，可选：['nick']、['nick','mail']、['nick', 'mail', 'link']
-    requiredFields: "[]" # 必填项：设置为 "[]" 即可实现完全匿名评论；若要限制填邮箱则改为 "['mail']"
+    enableQQ: false # 是否启用昵称框自动获取QQ昵称和QQ头像，开启后是在昵称框输入QQ号码进行获取
+    meta: "['nick', 'mail', 'link']" # 评论者相关属性，可选值：['nick']，['nick','mail']，['nick', 'mail', 'link']
+    requiredFields: "['nick']" # 设置必填项，默认匿名
     bilibiliEmoji: true # 是否启用Bilibili表情
-
-  # giscus 评论 (GitHub账号登录评论，推荐，基于 GitHub Discussions)
-  # docs: https://giscus.app/zh-CN
-  giscus:
-    repo: "Nad-Am/myBlog"
-    repoId: "" # 从 https://giscus.app 获取
-    category: "Announcements"
-    categoryId: "" # 从 https://giscus.app 获取
-    theme: "light"
-    lang: "zh-CN"
-
   # disqus 评论
   # docs: https://disqus.com/
   disqus:
@@ -105,7 +93,7 @@ baidu_analytics:
 # 腾讯分析
 tencent_analytics:
 # 站点ico
-favicon: /images/avatar.jpg
+favicon: /favicon.ico
 
 # Social Icon
 social_icon:
@@ -114,5 +102,5 @@ social_icon:
     ins:
     zhihu:
     weibo:
-    github: https://github.com/Nad-Am
-    twitter:
+    github: https://github.com/miiiku/
+    twitter: https://twitter.com/guanquanhong

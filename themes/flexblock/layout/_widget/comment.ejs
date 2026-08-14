@@ -1,0 +1,104 @@
+<%
+  var useComments = theme.comments.use
+  var valine = theme.comments.valine
+  var disqus = theme.comments.disqus
+  var giscus = theme.comments.giscus
+  var gitalk = theme.comments.gitalk
+  var show_comments = post.comments
+  if (show_comments === undefined) {
+    show_comments = theme.comments.enable
+  }
+%>
+
+<% if (show_comments) { %>
+  <%# valine 评论 %>
+  <% if (useComments === 'valine' && valine.appId && valine.appKey) { %>
+    <div class="valine-container comments-container content-padding--primary soft-size--large soft-style--box">
+      <div id="valine_thread" class="valine-thread"></div>
+    </div>
+    <script type="text/javascript" src="https://<%= theme.jsdelivr_mirror || 'cdn.jsdelivr.net' %>/npm/leancloud-storage@3.15.0/dist/av-min.min.js"></script>
+    <script type="text/javascript" src="https://<%= theme.jsdelivr_mirror || 'cdn.jsdelivr.net' %>/npm/valine/dist/Valine.min.js"></script>
+    <script type="text/javascript">
+      new Valine({
+        el: "#valine_thread",
+        appId: "<%= valine.appId %>",
+        appKey: "<%= valine.appKey %>",
+        placeholder: "<%= valine.placeholder %>",
+        avatar: "<%= valine.avatar %>",
+        pageSize: <%= valine.pageSize %>,
+        lang: "<%= valine.lang %>",
+        visitor: <%= valine.visitor %>,
+        recordIP: <%= valine.recordIP %>,
+        enableQQ: <%= valine.enableQQ %>,
+        meta: <%- valine.meta %>,
+        requiredFields: <%- valine.requiredFields %>,
+        <% if (valine.bilibiliEmoji) { %>
+        <%- partial("../plug-in/bilibili-emoji") %>
+        <% } %>
+      });
+    </script>
+  <% } %>
+
+  <%# giscus 评论 (GitHub 账号登录评论) %>
+  <% if (useComments === 'giscus' && giscus && giscus.repo && giscus.repoId) { %>
+    <div class="giscus-container comments-container content-padding--primary soft-size--large soft-style--box">
+      <script src="https://giscus.app/client.js"
+              data-repo="<%= giscus.repo %>"
+              data-repo-id="<%= giscus.repoId %>"
+              data-category="<%= giscus.category || 'Announcements' %>"
+              data-category-id="<%= giscus.categoryId || '' %>"
+              data-mapping="<%= giscus.mapping || 'pathname' %>"
+              data-strict="<%= giscus.strict || '0' %>"
+              data-reactions-enabled="<%= giscus.reactionsEnabled || '1' %>"
+              data-emit-metadata="<%= giscus.emitMetadata || '0' %>"
+              data-input-position="<%= giscus.inputPosition || 'bottom' %>"
+              data-theme="<%= giscus.theme || 'light' %>"
+              data-lang="<%= giscus.lang || 'zh-CN' %>"
+              crossorigin="anonymous"
+              async>
+      </script>
+    </div>
+  <% } %>
+
+  <%# gitalk 评论 (GitHub Issue 评论) %>
+  <% if (useComments === 'gitalk' && gitalk && gitalk.clientID && gitalk.clientSecret) { %>
+    <div class="gitalk-container comments-container content-padding--primary soft-size--large soft-style--box">
+      <div id="gitalk-container"></div>
+    </div>
+    <link rel="stylesheet" href="https://<%= theme.jsdelivr_mirror || 'cdn.jsdelivr.net' %>/npm/gitalk/dist/gitalk.css">
+    <script src="https://<%= theme.jsdelivr_mirror || 'cdn.jsdelivr.net' %>/npm/gitalk/dist/gitalk.min.js"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        clientID: '<%= gitalk.clientID %>',
+        clientSecret: '<%= gitalk.clientSecret %>',
+        repo: '<%= gitalk.repo %>',
+        owner: '<%= gitalk.owner %>',
+        admin: <%- JSON.stringify(gitalk.admin || [gitalk.owner]) %>,
+        id: location.pathname.substring(0, 50),
+        distractionFreeMode: false
+      });
+      gitalk.render('gitalk-container');
+    </script>
+  <% } %>
+
+  <%# disqus 评论 %>
+  <% if (useComments === 'disqus' && disqus.website) { %>
+    <div class="disqus-container comments-container content-padding--primary soft-size--large soft-style--box">
+      <p id="disqus_error" class="disqus-error" style="display: none;"><%= disqus.error %></p>
+      <div id="disqus_thread" class="disqus-thread"></div>
+    </div>
+    <script type="text/javascript">
+      (function() {
+        var d = document, s = d.createElement('script'), c = d.querySelector(".disqus-container");
+        if (!c) return;
+        s.src = 'https://<%= disqus.website %>.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        s.onerror = () => {
+          document.querySelector("#disqus_error").style.display = "block";
+        }
+        (d.head || d.body).appendChild(s);
+      })();
+    </script>
+  <% } %>
+
+<% } %>

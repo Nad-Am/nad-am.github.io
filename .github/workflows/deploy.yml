@@ -1,0 +1,41 @@
+name: Deploy Hexo Blog
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+# 赋予 GITHUB_TOKEN 对仓库内容的写入权限（推送至 gh-pages 分支所需）
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 检出源码 (Checkout)
+        uses: actions/checkout@v4
+
+      - name: 配置 Node.js 环境 (Setup Node.js)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'yarn'
+
+      - name: 安装依赖 (Install dependencies)
+        run: yarn install --frozen-lockfile
+
+      - name: 构建静态网页 (Build static site)
+        run: yarn build
+
+      - name: 自动部署至 gh-pages 分支 (Deploy to gh-pages)
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          publish_branch: gh-pages
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          commit_message: 'Site updated via GitHub Actions: ${{ github.sha }}'
